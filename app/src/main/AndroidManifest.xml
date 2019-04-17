@@ -18,7 +18,6 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <!--<activity android:name=".ContactsActivity" />-->
         <activity android:name=".ContentProviderUser" />
         <provider
             android:authorities="com.unnc.zy18717.expensestracker.MyProvider"

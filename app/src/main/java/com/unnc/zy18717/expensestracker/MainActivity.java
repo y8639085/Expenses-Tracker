@@ -1,13 +1,16 @@
 package com.unnc.zy18717.expensestracker;
 
 import android.app.DatePickerDialog;
+import android.content.ContentValues;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
 import android.widget.DatePicker;
 import android.widget.EditText;
+import android.widget.Toast;
 import java.util.Calendar;
 
 public class MainActivity extends AppCompatActivity {
@@ -53,13 +56,23 @@ public class MainActivity extends AppCompatActivity {
 
     public void add(View view) {
 
-    }
+        final EditText categoryField = (EditText) findViewById(R.id.categoryPicker);
+        String category = categoryField.getText().toString();
 
-/*    public void contentProvider(View view) {
-        Intent intent = new Intent(MainActivity.this, ContactsActivity.class);
-        startActivity(intent);
-        //Bundle b=getIntent().getStringExtra() ;
-    }*/
+        final EditText amountField = (EditText) findViewById(R.id.amountPicker);
+        String amount = amountField.getText().toString();
+
+        if (datePicker.getText() == null || category.length() == 0 || amount.length() == 0) {
+            Toast.makeText(MainActivity.this, "Input at least one character", Toast.LENGTH_SHORT).show();
+            return;
+        }
+        ContentValues newValues = new ContentValues();
+        newValues.put(MyProviderContract.DATE, datePicker.getText().toString());
+        newValues.put(MyProviderContract.CATEGORY, category);
+        newValues.put(MyProviderContract.AMOUNT, amount);
+
+        getContentResolver().insert(MyProviderContract.EXPENSES_URI, newValues);
+    }
 
     public void contentProvider2(View view) {
         Intent intent = new Intent(MainActivity.this, ContentProviderUser.class);

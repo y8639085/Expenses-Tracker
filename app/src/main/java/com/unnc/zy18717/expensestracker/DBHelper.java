@@ -23,26 +23,13 @@ public class DBHelper extends SQLiteOpenHelper {
                 "category VARCHAR(128) NOT NULL," +
                 "amount VARCHAR(128) NOT NULL" +
                 ");");
-        Log.e("jiao", "ddddd");
-        /*db.execSQL("CREATE TABLE animals (" +
-                "_id INTEGER PRIMARY KEY AUTOINCREMENT ," +
-                "name VARCHAR(128) NOT NULL," +
-                "kind VARCHAR(128) NOT NULL," +
-                "food VARCHAR(128) NOT NULL" +
-                ");");*/
 
         db.execSQL("INSERT INTO expenses (date, category, amount) VALUES ('Date', 'Category', 'Amount');");
-//        db.execSQL("INSERT INTO expenses (date, category, amount) VALUES ('4', '5', '6');");
-
-//        db.execSQL("INSERT INTO animals (name, kind, food) VALUES ('scribble', 'cat', 'whiskers');");
-//        db.execSQL("INSERT INTO animals (name, kind, food) VALUES ('skippy', 'kangaroo', 'grass');");
     }
 
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
         db.execSQL("DROP TABLE IF EXISTS expenses");
-//        db.execSQL("DROP TABLE IF EXISTS animals");
-//        db.execSQL("DROP TABLE IF EXISTS food");
         onCreate(db);
     }
 }
