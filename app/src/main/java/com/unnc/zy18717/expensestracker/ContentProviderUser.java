@@ -5,11 +5,14 @@ import android.os.Bundle;
 import android.app.Activity;
 import android.content.ContentValues;
 import android.database.Cursor;
+import android.support.v7.app.AppCompatActivity;
 import android.view.MotionEvent;
 import android.view.View;
 import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.ListView;
+import android.widget.RadioButton;
+import android.widget.RadioGroup;
 import android.widget.SimpleCursorAdapter;
 import android.widget.Toast;
 
@@ -18,7 +21,7 @@ import com.unnc.zy18717.expensestracker.R;
 
 import java.util.Calendar;
 
-public class ContentProviderUser extends Activity {
+public class ContentProviderUser extends AppCompatActivity implements RadioGroup.OnCheckedChangeListener{
 
     SimpleCursorAdapter dataAdapter;
     private EditText datePicker;
@@ -42,47 +45,32 @@ public class ContentProviderUser extends Activity {
         datePicker.setOnFocusChangeListener(new View.OnFocusChangeListener() {
             @Override
             public void onFocusChange(View view, boolean b) {
-                if (b) {
+                if (b)
                     showDatePickDlg();
-                }
             }
         });
-        queryContentProvider();
+        queryContentProvider(null);
+        initRadio();
     }
 
-    public void queryContentProvider() {
-
-        String[] projection = new String[] {
-                MyProviderContract._ID,
-                MyProviderContract.DATE,
-                MyProviderContract.CATEGORY,
-                MyProviderContract.AMOUNT
-        };
-
-        String[] colsToDisplay = new String[] {
-                MyProviderContract.DATE,
-                MyProviderContract.CATEGORY,
-                MyProviderContract.AMOUNT
-        };
-
-        int[] colResIds = new int[] {
-                R.id.value1,
-                R.id.value2,
-                R.id.value3
-        };
-
-        Cursor cursor = getContentResolver().query(MyProviderContract.EXPENSES_URI, projection, null, null, null);
-
-        dataAdapter = new SimpleCursorAdapter(
-                this,
-                R.layout.db_item_layout,
-                cursor,
-                colsToDisplay,
-                colResIds,
-                0);
-
-        ListView listView = (ListView) findViewById(R.id.listView);
-        listView.setAdapter(dataAdapter);
+    protected void showDatePickDlg() {
+        Calendar calendar = Calendar.getInstance();
+        DatePickerDialog datePickerDialog = new DatePickerDialog(ContentProviderUser.this, new DatePickerDialog.OnDateSetListener() {
+            @Override
+            public void onDateSet(DatePicker view, int year, int monthOfYear, int dayOfMonth) {
+                monthOfYear += 1;
+                if (monthOfYear < 10 && dayOfMonth < 10)
+                    datePicker.setText(year + "/0" + monthOfYear + "/0" + dayOfMonth);
+                else if (monthOfYear < 10 && dayOfMonth >= 10)
+                    datePicker.setText(year + "/0" + monthOfYear + "/" + dayOfMonth);
+                else if (monthOfYear >= 10 && dayOfMonth < 10) {
+                    datePicker.setText(year + "/" + monthOfYear + "/0" + dayOfMonth);
+                }
+                else if (monthOfYear >= 10 && dayOfMonth >= 10)
+                    datePicker.setText(year + "/" + monthOfYear + "/" + dayOfMonth);
+            }
+        }, calendar.get(Calendar.YEAR), calendar.get(Calendar.MONTH), calendar.get(Calendar.DAY_OF_MONTH));
+        datePickerDialog.show();
     }
 
     public void add(View v) {
@@ -108,17 +96,65 @@ public class ContentProviderUser extends Activity {
 
         getContentResolver().insert(MyProviderContract.EXPENSES_URI, newValues);
 
-        queryContentProvider();
+        queryContentProvider(null);
     }
 
-    protected void showDatePickDlg() {
-        Calendar calendar = Calendar.getInstance();
-        DatePickerDialog datePickerDialog = new DatePickerDialog(ContentProviderUser.this, new DatePickerDialog.OnDateSetListener() {
-            @Override
-            public void onDateSet(DatePicker view, int year, int monthOfYear, int dayOfMonth) {
-                datePicker.setText(year + "/" + monthOfYear + "/" + dayOfMonth);
-            }
-        }, calendar.get(Calendar.YEAR), calendar.get(Calendar.MONTH), calendar.get(Calendar.DAY_OF_MONTH));
-        datePickerDialog.show();
+    public void queryContentProvider(String sortOrder) {
+
+        String[] projection = new String[] {
+                MyProviderContract._ID,
+                MyProviderContract.DATE,
+                MyProviderContract.CATEGORY,
+                MyProviderContract.AMOUNT
+        };
+
+        int[] colResIds = new int[] {
+                R.id.value1,
+                R.id.value2,
+                R.id.value3,
+                R.id.value4
+        };
+
+        Cursor cursor = getContentResolver().query(MyProviderContract.EXPENSES_URI, projection, null, null, sortOrder);
+
+        dataAdapter = new SimpleCursorAdapter(
+                this,
+                R.layout.db_item_layout,
+                cursor,
+                projection,
+                colResIds,
+                0);
+
+        ListView listView = (ListView) findViewById(R.id.listView);
+        listView.setAdapter(dataAdapter);
+    }
+
+    private void initRadio() {
+        RadioGroup radioGroup = (RadioGroup) findViewById(R.id.radioGroup);
+        RadioButton sortById = (RadioButton) findViewById(R.id.sortById);
+        radioGroup.check(sortById.getId());
+        radioGroup.setOnCheckedChangeListener(this);
+    }
+
+    @Override
+    public void onCheckedChanged(RadioGroup group, int checkedId) {
+        switch (group.getCheckedRadioButtonId()){
+            case R.id.sortById:
+                queryContentProvider("_id");
+                Toast.makeText(this, "Sort by id", Toast.LENGTH_SHORT).show();
+                break;
+            case R.id.sortByDate:
+                queryContentProvider("date");
+                Toast.makeText(this, "Sort by date", Toast.LENGTH_SHORT).show();
+            break;
+            case R.id.sortByCategory:
+                queryContentProvider("category");
+                Toast.makeText(this, "Sort by category", Toast.LENGTH_SHORT).show();
+                break;
+            case R.id.sortByAmount:
+                queryContentProvider("amount");
+                Toast.makeText(this, "Sory by amount", Toast.LENGTH_SHORT).show();
+                break;
+        }
     }
 }

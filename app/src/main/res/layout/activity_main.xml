@@ -12,7 +12,7 @@
         android:id="@+id/datePicker"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginEnd="56dp"
+        android:layout_marginEnd="10dp"
         android:ems="10"
         android:hint="Year/Mouth/Day"
         android:inputType="number|textPersonName"
@@ -25,8 +25,9 @@
         android:layout_height="30dp"
         android:layout_marginStart="16dp"
         android:layout_marginTop="40dp"
-        android:text="date"
+        android:text="Date"
         android:textAlignment="center"
+        android:textStyle="bold"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -35,8 +36,9 @@
         android:layout_width="60dp"
         android:layout_height="30dp"
         android:layout_marginTop="30dp"
-        android:text="category"
+        android:text="Category"
         android:textAlignment="center"
+        android:textStyle="bold"
         app:layout_constraintStart_toStartOf="@+id/date"
         app:layout_constraintTop_toBottomOf="@+id/date" />
 
@@ -45,8 +47,9 @@
         android:layout_width="60dp"
         android:layout_height="30dp"
         android:layout_marginTop="28dp"
-        android:text="amount"
+        android:text="Amount"
         android:textAlignment="center"
+        android:textStyle="bold"
         app:layout_constraintStart_toStartOf="@+id/category"
         app:layout_constraintTop_toBottomOf="@+id/category" />
 
@@ -54,7 +57,7 @@
         android:id="@+id/categoryPicker"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginEnd="56dp"
+        android:layout_marginEnd="10dp"
         android:ems="10"
         android:inputType="textPersonName"
         app:layout_constraintBaseline_toBaselineOf="@+id/category"
@@ -64,26 +67,11 @@
         android:id="@+id/amountPicker"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginEnd="56dp"
+        android:layout_marginEnd="10dp"
         android:ems="10"
         android:inputType="textPersonName"
         app:layout_constraintBaseline_toBaselineOf="@+id/amount"
         app:layout_constraintEnd_toEndOf="parent" />
-
-    <Button
-        android:id="@+id/button"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentStart="true"
-        android:layout_alignParentEnd="true"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="32dp"
-        android:layout_marginEnd="8dp"
-        android:text="Contacts Activity"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.497"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/add" />
 
     <Button
         android:id="@+id/button2"
@@ -96,17 +84,17 @@
         android:layout_marginTop="10dp"
         android:layout_marginEnd="8dp"
         android:onClick="contentProvider2"
-        android:text="Content Provider Activity"
+        android:text=" Browse records"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/button" />
+        app:layout_constraintTop_toBottomOf="@+id/add" />
 
     <Button
         android:id="@+id/add"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
-        android:layout_marginTop="68dp"
+        android:layout_marginTop="60dp"
         android:layout_marginEnd="8dp"
         android:onClick="add"
         android:text="add"

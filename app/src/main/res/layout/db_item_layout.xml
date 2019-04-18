@@ -7,10 +7,9 @@
 
     <TextView
         android:id="@+id/value1"
-        android:layout_width="120dp"
+        android:layout_width="30dp"
         android:layout_height="wrap_content"
-        android:layout_weight="0.33"
-        android:text="New Text"
+        android:text="id"
         android:textAlignment="textStart" />
 
     <TextView
@@ -23,6 +22,14 @@
 
     <TextView
         android:id="@+id/value3"
+        android:layout_width="120dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="0.33"
+        android:text="New Text"
+        android:textAlignment="textStart" />
+
+    <TextView
+        android:id="@+id/value4"
         android:layout_width="120dp"
         android:layout_height="wrap_content"
         android:layout_weight="0.33"

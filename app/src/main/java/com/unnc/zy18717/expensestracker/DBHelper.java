@@ -23,8 +23,6 @@ public class DBHelper extends SQLiteOpenHelper {
                 "category VARCHAR(128) NOT NULL," +
                 "amount VARCHAR(128) NOT NULL" +
                 ");");
-
-        db.execSQL("INSERT INTO expenses (date, category, amount) VALUES ('Date', 'Category', 'Amount');");
     }
 
     @Override

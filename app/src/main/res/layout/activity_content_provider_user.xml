@@ -1,15 +1,67 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:weightSum="1"
     android:focusable="true"
-    android:focusableInTouchMode="true">
+    android:focusableInTouchMode="true"
+    android:gravity="end"
+    android:orientation="vertical"
+    android:weightSum="1">
 
     <LinearLayout
-        android:orientation="horizontal"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:weightSum="1">
+
+        <TextView
+            android:id="@+id/textView"
+            android:layout_width="41dp"
+            android:layout_height="wrap_content"
+            android:text="Sort by"
+            android:textAlignment="center" />
+
+    <RadioGroup
+        android:id="@+id/radioGroup"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <RadioButton
+            android:id="@+id/sortById"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="ID" />
+
+        <RadioButton
+            android:id="@+id/sortByDate"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="Date" />
+
+        <RadioButton
+            android:id="@+id/sortByCategory"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="Category" />
+
+        <RadioButton
+            android:id="@+id/sortByAmount"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="Amount" />
+
+    </RadioGroup>
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
         android:weightSum="1">
 
         <EditText
@@ -18,8 +70,8 @@
             android:layout_height="wrap_content"
             android:layout_weight="0.32"
             android:ems="10"
-            android:inputType="textPersonName"
-            android:hint="Date"></EditText>
+            android:hint="Date"
+            android:inputType="textPersonName"></EditText>
 
         <EditText
             android:id="@+id/categoryField"
@@ -28,8 +80,8 @@
             android:layout_gravity="right"
             android:layout_weight="0.32"
             android:ems="10"
-            android:inputType="textPersonName"
-            android:hint="Category"></EditText>
+            android:hint="Category"
+            android:inputType="textPersonName"></EditText>
 
         <EditText
             android:id="@+id/amountField"
@@ -38,8 +90,8 @@
             android:layout_gravity="center_horizontal"
             android:layout_weight="0.32"
             android:ems="10"
-            android:inputType="textPersonName"
-            android:hint="Amount"></EditText>
+            android:hint="Amount"
+            android:inputType="textPersonName"></EditText>
     </LinearLayout>
 
     <Button
@@ -49,9 +101,51 @@
         android:onClick="add"
         android:text="Add" />
 
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:weightSum="1">
+
+        <TextView
+            android:id="@+id/value15"
+            android:layout_width="30dp"
+            android:layout_height="wrap_content"
+            android:text="ID"
+            android:textAlignment="textStart"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/value18"
+            android:layout_width="120dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="0.33"
+            android:text="Date"
+            android:textAlignment="textStart"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/value16"
+            android:layout_width="120dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="0.33"
+            android:text="Category"
+            android:textAlignment="textStart"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/value17"
+            android:layout_width="120dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="0.33"
+            android:text="Amount"
+            android:textAlignment="textStart"
+            android:textStyle="bold" />
+    </LinearLayout>
+
     <ListView
         android:id="@+id/listView"
         android:layout_width="wrap_content"
-        android:layout_height="500dp" />
+        android:layout_height="300dp" />
 
 </LinearLayout>
