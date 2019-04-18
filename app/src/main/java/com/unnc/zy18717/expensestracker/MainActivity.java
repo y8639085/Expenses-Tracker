@@ -3,6 +3,7 @@ package com.unnc.zy18717.expensestracker;
 import android.app.DatePickerDialog;
 import android.content.ContentValues;
 import android.content.Intent;
+import android.content.res.Configuration;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.MotionEvent;
@@ -19,8 +20,15 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
 
+        // adaptation of portrait or landscape
+        int orientation = getResources().getConfiguration().orientation;
+        if (orientation == Configuration.ORIENTATION_PORTRAIT)
+            setContentView(R.layout.activity_main);
+        else if (orientation == Configuration.ORIENTATION_LANDSCAPE)
+            setContentView(R.layout.activity_main_landscape);
+
+        // set calendar
         datePicker = (EditText) findViewById(R.id.datePicker);
         datePicker.setOnTouchListener(new View.OnTouchListener() {
             @Override
@@ -41,6 +49,7 @@ public class MainActivity extends AppCompatActivity {
         });
     }
 
+    // show date in textview
     protected void showDatePickDlg() {
         Calendar calendar = Calendar.getInstance();
         DatePickerDialog datePickerDialog = new DatePickerDialog(MainActivity.this, new DatePickerDialog.OnDateSetListener() {
@@ -60,6 +69,7 @@ public class MainActivity extends AppCompatActivity {
         datePickerDialog.show();
     }
 
+    // add an item into the database
     public void add(View view) {
 
         final EditText categoryField = (EditText) findViewById(R.id.categoryPicker);
@@ -68,21 +78,23 @@ public class MainActivity extends AppCompatActivity {
         final EditText amountField = (EditText) findViewById(R.id.amountPicker);
         String amount = amountField.getText().toString();
 
+        // all fields are need to be filled
         if (datePicker.getText() == null || category.length() == 0 || amount.length() == 0) {
             Toast.makeText(MainActivity.this, "Input at least one character", Toast.LENGTH_SHORT).show();
             return;
         }
+        // put data to contentprovider
         ContentValues newValues = new ContentValues();
         newValues.put(MyProviderContract.DATE, datePicker.getText().toString());
         newValues.put(MyProviderContract.CATEGORY, category);
         newValues.put(MyProviderContract.AMOUNT, amount);
-
         getContentResolver().insert(MyProviderContract.EXPENSES_URI, newValues);
         Intent intent = new Intent(MainActivity.this, ContentProviderUser.class);
         startActivity(intent);
     }
 
-    public void contentProvider2(View view) {
+    // browse all items in database
+    public void browse(View view) {
         Intent intent = new Intent(MainActivity.this, ContentProviderUser.class);
         startActivity(intent);
     }

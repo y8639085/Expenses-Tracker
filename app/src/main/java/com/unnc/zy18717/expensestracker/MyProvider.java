@@ -18,10 +18,6 @@ public class MyProvider extends ContentProvider {
         uriMatcher = new UriMatcher(UriMatcher.NO_MATCH);
         uriMatcher.addURI(MyProviderContract.AUTHORITY, "expenses", 1);
         uriMatcher.addURI(MyProviderContract.AUTHORITY, "expenses/#", 2);
-        /*uriMatcher.addURI(MyProviderContract.AUTHORITY, "animals", 3);
-        uriMatcher.addURI(MyProviderContract.AUTHORITY, "animals/#", 4);
-        uriMatcher.addURI(MyProviderContract.AUTHORITY, "food", 5);
-        uriMatcher.addURI(MyProviderContract.AUTHORITY, "food/#", 6);*/
         uriMatcher.addURI(MyProviderContract.AUTHORITY, "*", 7);
     }
 
@@ -37,12 +33,10 @@ public class MyProvider extends ContentProvider {
 
         String contentType;
 
-        if (uri.getLastPathSegment() == null) {
+        if (uri.getLastPathSegment() == null)
             contentType = MyProviderContract.CONTENT_TYPE_MULTIPLE;
-        }
-        else {
+        else
             contentType = MyProviderContract.CONTENT_TYPE_SINGLE;
-        }
         return contentType;
     }
 
@@ -56,9 +50,6 @@ public class MyProvider extends ContentProvider {
             case 1:
                 tableName = "expenses";
                 break;
-            /*case 3:
-                tableName = "animals";
-                break;*/
             default:
                 tableName = "expenses";
                 break;
@@ -87,19 +78,6 @@ public class MyProvider extends ContentProvider {
                 selection = "_ID = " + uri.getLastPathSegment();
             case 1:
                 return db.query("expenses", projection, selection, selectionArgs, null, null, sortOrder);
-//            case 4:
-//                selection = "_ID = " + uri.getLastPathSegment();
-//            case 3:
-//                return db.query("expenses", projection, selection, selectionArgs, null, null, sortOrder);
-//            case 5:
-//                String q5 = "SELECT _id, name, food FROM people UNION SELECT _id, name, food FROM animals";
-//                return db.rawQuery(q5, selectionArgs);
-//            case 6:
-//                String q6 = "SELECT _id, name, food FROM people UNION SELECT _id, name, food FROM animals WHERE _ID = " + uri.getLastPathSegment();
-//                return db.rawQuery(q6, selectionArgs);
-//            case 7:
-//                String q7 = "SELECT * FROM people UNION SELECT * FROM animals";
-//                return db.rawQuery(q7, selectionArgs);
             default:
                 return null;
         }

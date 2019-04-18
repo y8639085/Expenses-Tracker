@@ -2,7 +2,6 @@ package com.unnc.zy18717.expensestracker;
 
 import android.app.DatePickerDialog;
 import android.os.Bundle;
-import android.app.Activity;
 import android.content.ContentValues;
 import android.database.Cursor;
 import android.support.v7.app.AppCompatActivity;
@@ -15,11 +14,9 @@ import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.SimpleCursorAdapter;
 import android.widget.Toast;
-
+import java.util.Calendar;
 import com.unnc.zy18717.expensestracker.MyProviderContract;
 import com.unnc.zy18717.expensestracker.R;
-
-import java.util.Calendar;
 
 public class ContentProviderUser extends AppCompatActivity implements RadioGroup.OnCheckedChangeListener{
 
@@ -99,6 +96,7 @@ public class ContentProviderUser extends AppCompatActivity implements RadioGroup
         queryContentProvider(null);
     }
 
+    // query database using given order
     public void queryContentProvider(String sortOrder) {
 
         String[] projection = new String[] {
@@ -125,17 +123,21 @@ public class ContentProviderUser extends AppCompatActivity implements RadioGroup
                 colResIds,
                 0);
 
+        // put data into listview
         ListView listView = (ListView) findViewById(R.id.listView);
         listView.setAdapter(dataAdapter);
     }
 
+    // initialize all radiobuttons
     private void initRadio() {
         RadioGroup radioGroup = (RadioGroup) findViewById(R.id.radioGroup);
         RadioButton sortById = (RadioButton) findViewById(R.id.sortById);
+        // set "sortById" as default
         radioGroup.check(sortById.getId());
         radioGroup.setOnCheckedChangeListener(this);
     }
 
+    // sort data by click radiobuttons
     @Override
     public void onCheckedChanged(RadioGroup group, int checkedId) {
         switch (group.getCheckedRadioButtonId()){
