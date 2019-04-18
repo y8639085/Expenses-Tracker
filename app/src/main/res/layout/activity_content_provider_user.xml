@@ -91,7 +91,7 @@
             android:layout_weight="0.32"
             android:ems="10"
             android:hint="Amount"
-            android:inputType="textPersonName"></EditText>
+            android:inputType="number|numberDecimal"></EditText>
     </LinearLayout>
 
     <Button
