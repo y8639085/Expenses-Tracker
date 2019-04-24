@@ -89,13 +89,13 @@ public class MainActivity extends AppCompatActivity {
         newValues.put(MyProviderContract.CATEGORY, category);
         newValues.put(MyProviderContract.AMOUNT, amount);
         getContentResolver().insert(MyProviderContract.EXPENSES_URI, newValues);
-        Intent intent = new Intent(MainActivity.this, ContentProviderUser.class);
+        Intent intent = new Intent(MainActivity.this, RecordsActivity.class);
         startActivity(intent);
     }
 
     // browse all items in database
     public void browse(View view) {
-        Intent intent = new Intent(MainActivity.this, ContentProviderUser.class);
+        Intent intent = new Intent(MainActivity.this, RecordsActivity.class);
         startActivity(intent);
     }
 }

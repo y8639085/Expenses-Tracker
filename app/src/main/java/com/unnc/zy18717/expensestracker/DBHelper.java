@@ -13,6 +13,7 @@ public class DBHelper extends SQLiteOpenHelper {
         Log.d("ae3cw3", "DBHelper");
     }
 
+    // create a new table to contain records, including 'id', 'date', 'category' and 'amount'
     @Override
     public void onCreate(SQLiteDatabase db) {
         Log.d("ae3cw3", "onCreate");
@@ -25,6 +26,7 @@ public class DBHelper extends SQLiteOpenHelper {
                 ");");
     }
 
+    // this method can upgrade database version by override
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
         db.execSQL("DROP TABLE IF EXISTS expenses");

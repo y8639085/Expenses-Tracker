@@ -15,10 +15,8 @@ import android.widget.RadioGroup;
 import android.widget.SimpleCursorAdapter;
 import android.widget.Toast;
 import java.util.Calendar;
-import com.unnc.zy18717.expensestracker.MyProviderContract;
-import com.unnc.zy18717.expensestracker.R;
 
-public class ContentProviderUser extends AppCompatActivity implements RadioGroup.OnCheckedChangeListener{
+public class RecordsActivity extends AppCompatActivity implements RadioGroup.OnCheckedChangeListener{
 
     SimpleCursorAdapter dataAdapter;
     private EditText datePicker;
@@ -52,7 +50,7 @@ public class ContentProviderUser extends AppCompatActivity implements RadioGroup
 
     protected void showDatePickDlg() {
         Calendar calendar = Calendar.getInstance();
-        DatePickerDialog datePickerDialog = new DatePickerDialog(ContentProviderUser.this, new DatePickerDialog.OnDateSetListener() {
+        DatePickerDialog datePickerDialog = new DatePickerDialog(RecordsActivity.this, new DatePickerDialog.OnDateSetListener() {
             @Override
             public void onDateSet(DatePicker view, int year, int monthOfYear, int dayOfMonth) {
                 monthOfYear += 1;
@@ -82,7 +80,7 @@ public class ContentProviderUser extends AppCompatActivity implements RadioGroup
         String amount = amountField.getText().toString();
 
         if (dateField.getText() == null || categoryField.length() == 0 || amountField.length() == 0) {
-            Toast.makeText(ContentProviderUser.this, "Input at least one character", Toast.LENGTH_SHORT).show();
+            Toast.makeText(RecordsActivity.this, "Input at least one character", Toast.LENGTH_SHORT).show();
             return;
         }
 
@@ -143,19 +141,15 @@ public class ContentProviderUser extends AppCompatActivity implements RadioGroup
         switch (group.getCheckedRadioButtonId()){
             case R.id.sortById:
                 queryContentProvider("_id");
-                Toast.makeText(this, "Sort by id", Toast.LENGTH_SHORT).show();
                 break;
             case R.id.sortByDate:
                 queryContentProvider("date");
-                Toast.makeText(this, "Sort by date", Toast.LENGTH_SHORT).show();
             break;
             case R.id.sortByCategory:
                 queryContentProvider("category");
-                Toast.makeText(this, "Sort by category", Toast.LENGTH_SHORT).show();
                 break;
             case R.id.sortByAmount:
                 queryContentProvider("amount");
-                Toast.makeText(this, "Sory by amount", Toast.LENGTH_SHORT).show();
                 break;
         }
     }

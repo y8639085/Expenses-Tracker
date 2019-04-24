@@ -13,6 +13,7 @@ public class MyProviderContract {
     public static final String CATEGORY = "category";
     public static final String AMOUNT = "amount";
 
+    // MIME type string
     public static final String CONTENT_TYPE_SINGLE = "vnd.android.cursor.item/MyProvider.data.text";
     public static final String CONTENT_TYPE_MULTIPLE = "vnd.android.cursor.dir/MyProvider.data.text";
 }

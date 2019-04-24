@@ -14,13 +14,15 @@ public class MyProvider extends ContentProvider {
 
     private DBHelper dbHelper = null;
     private static final UriMatcher uriMatcher;
+    // this is used to match the table
     static {
         uriMatcher = new UriMatcher(UriMatcher.NO_MATCH);
         uriMatcher.addURI(MyProviderContract.AUTHORITY, "expenses", 1);
         uriMatcher.addURI(MyProviderContract.AUTHORITY, "expenses/#", 2);
-        uriMatcher.addURI(MyProviderContract.AUTHORITY, "*", 7);
+        uriMatcher.addURI(MyProviderContract.AUTHORITY, "*", 3);
     }
 
+    // create a new database
     @Override
     public boolean onCreate() {
         Log.d("ae3cw3", "contentprovider oncreate");
@@ -28,9 +30,9 @@ public class MyProvider extends ContentProvider {
         return true;
     }
 
+    // return type of uri
     @Override
     public String getType(Uri uri) {
-
         String contentType;
 
         if (uri.getLastPathSegment() == null)
@@ -40,12 +42,14 @@ public class MyProvider extends ContentProvider {
         return contentType;
     }
 
+    // insert data to the database
     @Override
     public Uri insert(Uri uri, ContentValues values) {
 
         SQLiteDatabase db = dbHelper.getWritableDatabase();
         String tableName;
 
+        // match tables, in this cw we just use one table
         switch(uriMatcher.match(uri)) {
             case 1:
                 tableName = "expenses";
@@ -66,6 +70,7 @@ public class MyProvider extends ContentProvider {
         return nu;
     }
 
+    // query data from database
     @Override
     public Cursor query(Uri uri, String[] projection, String selection, String[] selectionArgs, String sortOrder) {
 
